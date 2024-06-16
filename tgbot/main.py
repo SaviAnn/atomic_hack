@@ -3,7 +3,7 @@ import telebot
 from io import BytesIO
 import os, time
 
-TOKEN = '6718781455:AAGNY4BT6jmoSHNEEOevJ5Jt1S7b83o7658'
+TOKEN = ''
 bot = telebot.TeleBot(TOKEN)
 
 WEB_APP_URL = 'http://10.16.0.79:5003/process'
