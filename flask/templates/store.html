@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <meta charset="UTF-8">
+    <title>Изображения</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .image-pair {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            margin-right: 20px;
+            align-items: center;
+        }
+        img {
+            width: 600px; /* или другой размер, подходящий для вашего превью */
+        }
+    </style>
+</head>
+<body>
+<header><form action="/" method="get">
+    <button type="submit" class="btn">Назад к загрузке</button>
+</form></header> <div class="upload-container">
+    <h1>Изображения до и после обработки</h1>
+
+        {% for original, processed in images.items() %}
+            <div class="image-pair">
+                <div class="image-container">
+                    <h2>Оригинал</h2>
+                    <img src="{{ url_for('uploaded_file', filename=original) }}" alt="Оригинальное изображение">
+                </div>
+                <div class="image-container">
+                    {% if processed %}
+                        <h2>Обработанное</h2>
+                        <img src="{{ url_for('uploaded_file', filename=processed) }}" alt="Обработанное изображение">
+                    {% else %}
+                        <h2>Обработанное (нет)</h2>
+                        <p>Обработанная версия отсутствует</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

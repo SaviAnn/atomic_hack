@@ -1,0 +1,124 @@
+body {
+    font-family: Helvetica Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    text-align: center;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.8); /* Черный цвет с 50% прозрачностью */
+    z-index: 9999;
+}
+.upload-container {
+    margin: auto;
+    align-items: left;
+    padding: 20px;
+    border-radius: 1px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+    margin-top: 80px; /* Добавлен отступ сверху, чтобы контент не налагался на шапку */
+}
+.success-container {
+    margin: auto;
+    padding: 20px;
+    border-radius: 1px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+    margin-top: 60px; /* Добавлен отступ сверху, чтобы контент не налагался на шапку */
+}
+#preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+.image-preview {
+    position: relative;
+    width: 690px;
+    height: 360px;
+    margin: 5px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+     max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+.image-preview::before {
+    content: 'x';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: white;
+    color: red;
+    height: 20px;
+    width: 20px;
+    border-radius: 10%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button {
+    background-color: #105171;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #084067;
+}
+input[type="file"] {
+    display: none;  // Скрытие поля ввода файла
+}
+#uploadButton {
+    display: inline-block;
+    margin: 20px 0;
+}
+buttonstore {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    position: right;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.8); /* Черный цвет с 50% прозрачностью */
+    z-index: 9999;
+}
+buttonstore:hover {
+    background-color: #0056b3;
+}
+a:link {
+    color: blue; /* Цвет ссылок до нажатия */
+}
+
+a:visited {
+    color: white; /* Цвет ссылок после нажатия */
+}
+a:hover {
+    color: white; /* Цвет ссылок при наведении */
+}
+a:active {
+    color: white; /* Цвет ссылок в момент нажатия */
+}

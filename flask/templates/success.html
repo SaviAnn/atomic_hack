@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Результат обработки</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+ <header> <form action="/store" method="get">
+    <button type="submit" class="btn">База изображений</button>
+</form></header>
+<script>
+window.onload = function() {
+    setTimeout(() => {
+        // Обновление изображений путем изменения src с добавлением временной метки для предотвращения кэширования
+        const images = document.getElementsByClassName('uploaded-image');
+        for(let i = 0; i < images.length; i++){
+            const src = images[i].src;
+            const newSrc = src + "?timestamp=" + new Date().getTime();
+            images[i].src = newSrc;
+        }
+    }, 3000); // Добавлено время ожидания в миллисекундах
+};
+</script>
+    <div class="success-container">
+        <h1>Изображения успешно загружены</h1>
+       <form action="/" method="get">
+    <button type="submit" class="btn">Назад к загрузке</button>
+</form>
+        {% for file in processed_files %}
+        <div>
+            <h4>Имя файла: {{ file['image_name'] }}</h4> <!-- Изменено для доступа к данным словаря -->
+            <h2>Тип дефекта: {{ file['defect_type'] }}</h2> <!-- Добавлен вывод типа дефекта -->
+            <img src="{{ file['local_image_url'] }}" alt="{{ file['image_name'] }}" class="image-preview" style="max-width: 100%;">
+        </div>
+        {% endfor %}
+
+    </div>
+</body>
+</html>

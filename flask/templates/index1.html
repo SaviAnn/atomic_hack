@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+    <title>Загрузка изображений</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('#preview').attr('src', e.target.result);
+            $('#preview').show();  // Показать изображение
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      $("#file").change(function() {
+        readURL(this);
+      });
+      $('#preview').hide();  // Скрыть изображение по умолчанию
+    });
+    </script>
+</head>
+<body><header></header>
+
+    <div class="upload-container">
+        <h1>Загрузка файла</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" id="file" name="file">
+            <img id="preview" src="#" alt="your image" />
+            <button type="submit">Загрузить</button>
+        </form>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

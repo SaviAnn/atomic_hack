@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка изображений</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Ширина логотипа, можно изменить по необходимости */
+        }
+        header {
+            position: relative; /* Чтобы логотип был относительно header */
+        }
+    </style>
+</head>
+<body> <header> <form action="/store" method="get">
+    <button type="submit" class="btn">База изображений</button>
+</form></header>
+    <div class="upload-container">
+        <h1>Загрузка изображений для обработки</h1>
+        <form id="uploadForm" method="POST" enctype="multipart/form-data">
+            <input type="file" id="file" name="file" multiple style="display: none;" onchange="previewFiles()">
+            <button type="button" id="uploadButton">Выберите файлы</button> <button type="submit">Загрузить</button>
+            <div id="preview"></div>
+
+        </form>
+    </div>
+
+    <script>
+        var uploadButton = document.querySelector('#uploadButton');
+        var fileInput = document.querySelector('#file');
+        var preview = document.querySelector('#preview');
+        var form = document.querySelector('#uploadForm');
+        var selectedFiles = [];
+
+        uploadButton.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        function previewFiles() {
+            while(preview.firstChild) {
+                preview.firstChild.remove();
+            }
+
+            selectedFiles = Array.from(fileInput.files);
+            selectedFiles.forEach(function(file, index) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    var div = document.createElement('div');
+                    div.className = 'image-preview';
+                    div.style.backgroundImage = 'url(' + reader.result + ')';
+                    div.addEventListener('click', function() {
+                        const filename = file.name;
+                        $.ajax({
+                            url: '/remove-file/' + filename,
+                            type: 'POST',
+                            success: function() {
+                                div.remove();  // Удаление предпросмотра при клике
+                                selectedFiles.splice(index, 1);  // Удаление файла из массива
+
+
+                                const dt = new DataTransfer();
+                                selectedFiles.forEach(file => dt.items.add(file));
+                                fileInput.files = dt.files;}
+                        });
+                    });
+                    preview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+</body>
+</html>
